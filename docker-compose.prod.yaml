@@ -6,7 +6,7 @@ services:
       dockerfile: ./Dockerfile
     network_mode: host
     environment:
-      ENV: 'DOCKER_PROD'
+      MODE: 'DOCKER_PROD'
     command:
       python3 main.py
 

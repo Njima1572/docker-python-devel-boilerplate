@@ -1,0 +1,16 @@
+version: "3.0"
+services:
+  scraper:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    network_mode: host
+    volumes: 
+      - './app:/app'
+    environment:
+      ENV: 'DOCKER_DEVEL'
+    command:
+      python3 main.py
+
+
+

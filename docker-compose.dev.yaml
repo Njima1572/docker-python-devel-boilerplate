@@ -3,7 +3,7 @@ services:
   scraper:
     build:
       context: .
-      dockerfile: ./Dockerfile.dev
+      dockerfile: ./Dockerfile
     network_mode: host
     volumes: 
       - './app:/app'

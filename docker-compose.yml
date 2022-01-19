@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: dev
+    network_mode: host
+    volumes: 
+      - './app:/app'
+    environment:
+      MODE: 'DOCKER_DEVEL'
+    command:
+      python3 main.py
+
+  prod:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: prod
+    network_mode: host
+    environment:
+      MODE: 'DOCKER_PROD'
+    command:
+      python3 main.py
+

@@ -1,6 +1,6 @@
 
 dev:
-	docker-compose -f ./docker-compose.dev.yaml up --build
+	docker-compose up dev --build 
 
 prod:
-	docker-compose -f ./docker-compose.prod.yaml up --build
+	docker-compose up prod --build

@@ -1,6 +1,6 @@
-version: "3.0"
+version: "3.8"
 services:
-  scraper:
+  dev:
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -9,6 +9,16 @@ services:
       - './app:/app'
     environment:
       MODE: 'DOCKER_DEVEL'
+    command:
+      python3 main.py
+
+  prod:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    network_mode: host
+    environment:
+      MODE: 'DOCKER_PROD'
     command:
       python3 main.py
 

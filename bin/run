@@ -1,0 +1,14 @@
+#!/bin/bash
+
+script_dir=$(dirname $(realpath "$0"))
+source $script_dir/_env.sh
+
+ARGS=$@
+CURRENT_DIR=$PWD
+
+
+cd $PROJECT_ROOT
+
+CURRENT_UID=$CURRENT_UID $DOCKER_COMPOSE run --rm -it $SERVICE_NAME sh -c "poetry install && poetry run main $ARGS"
+
+cd $CURRENT_DIR

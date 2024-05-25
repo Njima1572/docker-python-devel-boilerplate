@@ -1,26 +1,30 @@
-version: "3.8"
+version: '3.9'
 services:
-  dev:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-      target: dev
-    network_mode: host
-    volumes: 
-      - './app:/app'
-    environment:
-      MODE: 'DOCKER_DEVEL'
-    command:
-      python3 main.py
+  # https://pratikpc.medium.com/use-docker-compose-named-volumes-as-non-root-within-your-containers-1911eb30f731
+  change-vol-ownership:
+    image: ubuntu
+    user: "root"
+    volumes:
+      - poetry_cache:/tmp/change-ownership/poetry_cache
+      - venv:/tmp/change-ownership/venv
+    command: chown -R ${CURRENT_UID} /tmp/change-ownership
 
-  prod:
+  service:
+    user: ${CURRENT_UID}
     build:
-      context: .
-      dockerfile: ./Dockerfile
-      target: prod
-    network_mode: host
-    environment:
-      MODE: 'DOCKER_PROD'
-    command:
-      python3 main.py
+      context: '.'
+    working_dir: '/app'
+#   env_file:
+#     - '.env'
+    volumes:
+      - ./:/app
+      - poetry_cache:/tmp/poetry_cache
+      - venv:/app/.venv
+    depends_on:
+      change-vol-ownership:
+        # Wait for the ownership to change
+        condition: service_completed_successfully
 
+volumes:
+  poetry_cache:
+  venv:

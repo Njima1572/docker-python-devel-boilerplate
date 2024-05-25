@@ -1,8 +1,8 @@
-FROM python:3.8.12 as dev
+FROM python:3.10-buster as dev
 
-WORKDIR /app
-COPY ./requirements.txt /app
-RUN pip3 install -r requirements.txt
+RUN pip install poetry==1.8
 
-FROM dev as prod
-COPY ./app /app
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache

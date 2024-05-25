@@ -1,10 +1,20 @@
-# Python docker boilerplate
+# Python docker boilerplate with poetry
 
-- Make any modifications in `./app` to run application
+## Project initialization
 
-## To Run
-###  `DEVEL` mode
-- `make dev`
+```bash
+./bin/build
+./bin poetry init
+```
 
-### `PROD` mode
-- `make prod`
+## Add script
+
+`./bin/run` is a script that runs the main function in `app/__main__.py` by using `poery script`, you can customize it to run any script you want, but here is the sample snippet to add to your `pyproject.toml`
+
+```
+[tool.poetry.scripts]
+main = "app.__main__:main"
+```
+
+## Recommendation
+Use direnv to add the `bin` directory to your path.
